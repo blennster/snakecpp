@@ -1,4 +1,4 @@
-#include "tail.h"
+#include "tail.hh"
 
 void Tail::Render(SDL_Renderer *renderer) {
     if (nullptr != Next && this != Next)

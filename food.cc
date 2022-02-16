@@ -1,4 +1,4 @@
-#include "food.h"
+#include "food.hh"
 #include <stdlib.h>
 #include <random>
 

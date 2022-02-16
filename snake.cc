@@ -1,4 +1,4 @@
-#include "snake.h"
+#include "snake.hh"
 
 Snake::Snake(int size, int x, int y) : Tail(size) {
     Next = this;

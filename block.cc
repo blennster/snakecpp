@@ -1,5 +1,5 @@
-#include "SDL2/SDL.h"
-#include "block.h"
+#include <SDL2/SDL.h>
+#include "block.hh"
 
 Block::Block(int size)
 {

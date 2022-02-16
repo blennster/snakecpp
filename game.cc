@@ -1,7 +1,7 @@
-#include "game.h"
-#include "SDL2/SDL.h"
-#include "snake.h"
-#include "food.h"
+#include "game.hh"
+#include <SDL2/SDL.h>
+#include "snake.hh"
+#include "food.hh"
 #include <iostream>
 
 

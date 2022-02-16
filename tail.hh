@@ -1,5 +1,5 @@
 #pragma once
-#include "block.h"
+#include "block.hh"
 
 class Tail : public Block
 {

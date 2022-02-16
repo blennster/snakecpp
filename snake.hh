@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tail.h"
+#include "tail.hh"
 
 class Snake: public Tail
 {

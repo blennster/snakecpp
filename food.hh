@@ -1,6 +1,6 @@
 #pragma once
 
-#include "block.h"
+#include "block.hh"
 
 class Food : public Block
 {
