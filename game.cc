@@ -5,6 +5,11 @@
 #include "constants.h"
 #include <iostream>
 
+
+#define SIZE 600
+#define CELL_COUNT 20
+#define BLOCK_SIZE (SIZE / CELL_COUNT)
+
 void Game::Run()
 {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
@@ -19,8 +24,8 @@ void Game::Run()
     double dt = 1;
     uint64_t last_time = SDL_GetTicks64();
     uint64_t now;
-    Snake *snake = new Snake(BLOCK_SIZE);
-    Food *food = new Food(BLOCK_SIZE);
+    Snake *snake = new Snake(BLOCK_SIZE, BLOCK_SIZE * (CELL_COUNT / 2), BLOCK_SIZE * (CELL_COUNT / 2));
+    Food *food = new Food(BLOCK_SIZE, CELL_COUNT);
     bool game_over = false;
     int score = 0;
 
@@ -42,16 +47,16 @@ void Game::Run()
                 switch (event.key.keysym.sym)
                 {
                 case SDLK_UP:
-                    snake->SetDirection(DIR_UP);
+                    snake->SetDirection(Snake::UP);
                     break;
                 case SDLK_DOWN:
-                    snake->SetDirection(DIR_DOWN);
+                    snake->SetDirection(Snake::DOWN);
                     break;
                 case SDLK_LEFT:
-                    snake->SetDirection(DIR_LEFT);
+                    snake->SetDirection(Snake::LEFT);
                     break;
                 case SDLK_RIGHT:
-                    snake->SetDirection(DIR_RIGHT);
+                    snake->SetDirection(Snake::RIGHT);
                     break;
                 default:
                     break;
@@ -79,7 +84,7 @@ void Game::Run()
             SDL_RenderClear(renderer);
         }
 
-        if (snake->HitTest())
+        if (snake->HitTest() || snake->OutOfBounds(CELL_COUNT))
         {
             game_over = true;
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);

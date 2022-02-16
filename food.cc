@@ -2,19 +2,16 @@
 #include <stdlib.h>
 #include <random>
 
-unsigned int seed = 100;
-
-Food::Food(int size) : Block::Block(size)
+Food::Food(int size, int rnd_limit) : Block::Block(size)
 {
+    this->rnd_limit = rnd_limit;
     Move();
 }
 
 void Food::Move()
 {
-    seed++;
-    int rnd_x = rand_r(&seed) % 20;
-    seed++;
-    int rnd_y = rand_r(&seed) % 20;
+    int rnd_x = rand() % rnd_limit;
+    int rnd_y = rand() % rnd_limit;
 
     x = rnd_x * size;
     y = rnd_y * size;

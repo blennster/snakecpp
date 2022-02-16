@@ -1,11 +1,11 @@
 #include "snake.h"
 #include "constants.h"
 
-Snake::Snake(int size) : Tail(size) {
+Snake::Snake(int size, int x, int y) : Tail(size) {
     Next = this;
-    x = size*10;
-    y = size*10;
-    SetDirection(DIR_LEFT);
+    this-> x = x;
+    this-> y = y;
+    SetDirection(Snake::LEFT);
 }
 
 void Snake::SetDirection(int direction)
@@ -21,17 +21,17 @@ void Snake::SetDirection(int direction)
 
     switch (direction)
     {
-        case DIR_UP:
-            dy = -BLOCK_SIZE;
+        case Snake::UP:
+            dy = -size;
             break;
-        case DIR_DOWN:
-            dy = BLOCK_SIZE;
+        case Snake::DOWN:
+            dy = size;
             break;
-        case DIR_LEFT:
-            dx = -BLOCK_SIZE;
+        case Snake::LEFT:
+            dx = -size;
             break;
-        case DIR_RIGHT:
-            dx = BLOCK_SIZE;
+        case Snake::RIGHT:
+            dx = size;
             break;
         default:
             return;
@@ -64,8 +64,8 @@ void Snake::AddTail(Tail* tail) {
     Last = tail;
 }
 
-void Snake::Speedup(float factor) {
-    speed_factor += factor;
+void Snake::Speedup(float amount) {
+    speed_factor += amount;
 }
 
 bool Snake::HitTest() {
@@ -79,6 +79,15 @@ bool Snake::HitTest() {
             return true;
         }
         cur = cur->Next;
+    }
+
+    return false;
+}
+
+bool Snake::OutOfBounds(int cellcount)
+{
+    if ((x / size + 1) % (cellcount + 1) == 0 || (y / size + 1) % (cellcount + 1) == 0) {
+        return true;
     }
 
     return false;

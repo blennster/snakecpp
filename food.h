@@ -5,9 +5,9 @@
 class Food : public Block
 {
 private:
-    /* data */
+    int rnd_limit;
 public:
-    Food(int size);
+    Food(int size, int rnd_limit);
     ~Food();
     // Move to a random position
     void Move();
