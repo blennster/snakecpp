@@ -1,6 +1,5 @@
 #pragma once
 
-#include "constants.h"
 #include "SDL2/SDL.h"
 
 class Block

@@ -1,4 +1,0 @@
-#define SIZE 600
-// SIZE / 20
-#define CELL_COUNT 20
-#define BLOCK_SIZE (SIZE / CELL_COUNT)

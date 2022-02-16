@@ -1,11 +1,9 @@
 #include "snake.h"
-#include "constants.h"
 
 Snake::Snake(int size, int x, int y) : Tail(size) {
     Next = this;
-    this-> x = x;
-    this-> y = y;
-    SetDirection(Snake::LEFT);
+    this->x = x;
+    this->y = y;
 }
 
 void Snake::SetDirection(int direction)
@@ -37,6 +35,7 @@ void Snake::SetDirection(int direction)
             return;
     }
 
+    Move(1000);
 }
 
 void Snake::Move(double delta_time)

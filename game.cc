@@ -2,12 +2,11 @@
 #include "SDL2/SDL.h"
 #include "snake.h"
 #include "food.h"
-#include "constants.h"
 #include <iostream>
 
 
 #define SIZE 600
-#define CELL_COUNT 20
+#define CELL_COUNT 10
 #define BLOCK_SIZE (SIZE / CELL_COUNT)
 
 void Game::Run()
@@ -73,7 +72,7 @@ void Game::Run()
         {
             food->Move();
             snake->AddTail(new Tail(BLOCK_SIZE));
-            snake->Speedup(0.4);
+            snake->Speedup((float)1 / (float)CELL_COUNT);
             score++;
         }
 
