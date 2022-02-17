@@ -6,15 +6,16 @@ class Block
 {
 protected:
     int size;
-    int x;
-    int y;
-    Block();
+    int x, y;
+    int r, g, b;
+
 public:
     Block(int size);
-    ~Block();
+    virtual ~Block() {};
     void Render(SDL_Renderer *renderer);
     virtual void Move(int x, int y);
-    int GetX();
-    int GetY();
-    bool HitTest(Block* other);
+    int GetX() const;
+    int GetY() const;
+    bool HitTest(Block *other) const;
+    void SetColor(int red, int green, int blue);
 };

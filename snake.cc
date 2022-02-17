@@ -1,16 +1,24 @@
 #include "snake.hh"
 
-Snake::Snake(int size, int x, int y) : Tail(size) {
+Snake::Snake(int size, int x, int y) : Tail(size)
+{
     Next = this;
     this->x = x;
     this->y = y;
+    speed_factor = 2;
+    direction = LEFT;
+    prev_direction = 0;
+    dx = 0;
+    dy = 0;
+    cumulated_time = 0;
 }
 
 void Snake::SetDirection(int direction)
 {
     this->direction = direction;
 
-    if ((direction + prev_direction) == 0 || direction == prev_direction) {
+    if ((direction + prev_direction) == 0 || direction == prev_direction)
+    {
         return;
     }
 
@@ -19,20 +27,20 @@ void Snake::SetDirection(int direction)
 
     switch (direction)
     {
-        case Snake::UP:
-            dy = -size;
-            break;
-        case Snake::DOWN:
-            dy = size;
-            break;
-        case Snake::LEFT:
-            dx = -size;
-            break;
-        case Snake::RIGHT:
-            dx = size;
-            break;
-        default:
-            return;
+    case Snake::UP:
+        dy = -size;
+        break;
+    case Snake::DOWN:
+        dy = size;
+        break;
+    case Snake::LEFT:
+        dx = -size;
+        break;
+    case Snake::RIGHT:
+        dx = size;
+        break;
+    default:
+        return;
     }
 
     Move(1000);
@@ -42,7 +50,8 @@ void Snake::Move(double delta_time)
 {
     cumulated_time += delta_time;
 
-    if (cumulated_time * speed_factor < 1000) {
+    if (cumulated_time * speed_factor < 1000)
+    {
         return;
     }
 
@@ -53,28 +62,42 @@ void Snake::Move(double delta_time)
     cumulated_time = 0;
 }
 
-void Snake::AddTail(Tail* tail) {
-    if (Next == this) {
+void Snake::AddTail(Tail *tail)
+{
+    if (Next == this)
+    {
         Next = tail;
-    } else {
+    }
+    else
+    {
         Last->Next = tail;
     }
 
     Last = tail;
 }
 
-void Snake::Speedup(float amount) {
+void Snake::Speedup(float amount)
+{
     speed_factor += amount;
 }
 
-bool Snake::HitTest() {
-    if (Next == this) {
+bool Snake::HitTest()
+{
+    return HitTest(this);
+}
+
+bool Snake::HitTest(Block *other)
+{
+    if (Next == this)
+    {
         return false;
     }
 
-    Tail* cur = Next;
-    while (nullptr != cur) {
-        if (cur->HitTest(this)) {
+    Tail *cur = Next;
+    while (nullptr != cur)
+    {
+        if (cur->HitTest(other))
+        {
             return true;
         }
         cur = cur->Next;
@@ -85,7 +108,8 @@ bool Snake::HitTest() {
 
 bool Snake::OutOfBounds(int cellcount)
 {
-    if ((x / size + 1) % (cellcount + 1) == 0 || (y / size + 1) % (cellcount + 1) == 0) {
+    if ((x / size + 1) % (cellcount + 1) == 0 || (y / size + 1) % (cellcount + 1) == 0)
+    {
         return true;
     }
 

@@ -8,7 +8,7 @@ private:
     int rnd_limit;
 public:
     Food(int size, int rnd_limit);
-    ~Food();
+    ~Food() {};
     // Move to a random position
     void Move();
 };

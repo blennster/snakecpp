@@ -18,3 +18,10 @@ void Tail::Move(int x, int y)
 
     Block::Move(x, y);
 }
+
+Tail::~Tail() {
+    if (nullptr != Next && this != Next)
+    {
+        delete Next;
+    }
+}

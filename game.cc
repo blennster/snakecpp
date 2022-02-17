@@ -4,7 +4,6 @@
 #include "food.hh"
 #include <iostream>
 
-
 #define SIZE 600
 #define CELL_COUNT 10
 #define BLOCK_SIZE (SIZE / CELL_COUNT)
@@ -21,12 +20,20 @@ void Game::Run()
 
     SDL_Event event;
     double dt = 1;
-    uint64_t last_time = SDL_GetTicks64();
-    uint64_t now;
-    Snake *snake = new Snake(BLOCK_SIZE, BLOCK_SIZE * (CELL_COUNT / 2), BLOCK_SIZE * (CELL_COUNT / 2));
-    Food *food = new Food(BLOCK_SIZE, CELL_COUNT);
-    bool game_over = false;
-    int score = 0;
+    uint64_t last_time, now;
+    Snake *snake;
+    Food *food;
+    bool game_over;
+    int score;
+
+    init: {
+        snake = new Snake(BLOCK_SIZE, BLOCK_SIZE * (CELL_COUNT / 2), BLOCK_SIZE * (CELL_COUNT / 2));
+        food = new Food(BLOCK_SIZE, CELL_COUNT);
+        game_over = false;
+        last_time = SDL_GetTicks64();
+        now = 0;
+        score = 0;
+    }
 
     while (!game_over)
     {
@@ -71,6 +78,10 @@ void Game::Run()
         if (food->HitTest(snake))
         {
             food->Move();
+            while (snake->HitTest(food))
+            {
+                food->Move();
+            }
             snake->AddTail(new Tail(BLOCK_SIZE));
             snake->Speedup((float)1 / (float)CELL_COUNT);
             score++;
@@ -102,12 +113,25 @@ void Game::Run()
 
     while (1)
     {
-        SDL_Delay(10);
+        SDL_Delay(100);
         if (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
             {
                 break;
+            }
+            if (event.type == SDL_KEYDOWN)
+            {
+                if (event.key.keysym.sym == SDLK_RETURN)
+                {
+                    delete snake;
+                    delete food;
+                    goto init;
+                }
+                else if (event.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    break;
+                }
             }
         }
     }

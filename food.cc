@@ -6,6 +6,9 @@ Food::Food(int size, int rnd_limit) : Block::Block(size)
 {
     this->rnd_limit = rnd_limit;
     Move();
+    r = 230;
+    b = 60;
+    g = 60;
 }
 
 void Food::Move()
